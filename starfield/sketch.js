@@ -3,35 +3,33 @@ var speed;
 var nrOfStars = 1000;
 var x_target;
 var y_target;
-var frDiv;
 var starSlider;
 
 function setup() {
-  createCanvas(640, 480);
+  var canvas = createCanvas(640, 480);
+  canvas.mousePressed(setCenter);
+  canvas.touchMoved(moveCenter);
   x_target = width / 2;
   y_target = width / 2;
   starSlider = createSlider(0, 5000, nrOfStars, 1);
   translate(x_target, y_target);
   createStars();
-  frDiv = createDiv('');
 }
 
 
 function draw() {
   //speed = map(mouseX, 0, width, 0, 50);
   background(0);
-  text((frameRate(), 2), 20, 20);
+  text(round(frameRate(),2), 20, 20);
+  text("Stars: " + stars.length, width - 80, 20);
   translate(x_target, y_target);
   if (stars.length != starSlider.value()) {
 	createStars();
-	//nrOfStars = starSlider.value();
   }
   for (var i = 0; i < stars.length; i++) {
     stars[i].update();
     stars[i].show();
   }
-  
-  frDiv.html(floor(frameRate()));
 }
 
 function createStars() {
@@ -52,13 +50,15 @@ function mouseDragged() {
 	y_target = mouseY;
 	return false;
 }
-
-function mousePressed() {
+*/
+function setCenter() {
 	x_target = mouseX;
 	y_target = mouseY;
-	return false;
+	//return false;
 }
 
-function toggleFrameRate() {
+function moveCenter() {
+	x_target = mouseX;
+	y_target = mouseY;
+	//return false;
 }
-*/

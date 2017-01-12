@@ -4,11 +4,13 @@ var nrOfStars = 1000;
 var x_target;
 var y_target;
 var starSlider;
+var overCanvas = false;
+var canvasSize = {width:640, height:480};
 
 function setup() {
-  var canvas = createCanvas(640, 480);
+  var canvas = createCanvas(canvasSize.width, canvasSize.height);
   canvas.mousePressed(setCenter);
-  canvas.touchMoved(moveCenter);
+  //canvas.touchMoved(moveCenter);
   x_target = width / 2;
   y_target = width / 2;
   starSlider = createSlider(0, 5000, nrOfStars, 1);
@@ -20,7 +22,7 @@ function setup() {
 function draw() {
   //speed = map(mouseX, 0, width, 0, 50);
   background(0);
-  text(round(frameRate(),2), 20, 20);
+  text("FPS: " + round(frameRate(),2), 20, 20);
   text("Stars: " + stars.length, width - 80, 20);
   translate(x_target, y_target);
   if (stars.length != starSlider.value()) {
@@ -30,6 +32,11 @@ function draw() {
     stars[i].update();
     stars[i].show();
   }
+  if (mouseX >= 0 && mouseX < width && mouseY>= 0 && mouseY < height) {
+	overCanvas = true;
+	if (mouseIsPressed) moveCenter();
+  }
+  else overCanvas = false;
 }
 
 function createStars() {
@@ -44,21 +51,12 @@ function createStars() {
   }
 }
 
-/*
-function mouseDragged() {
-	x_target = mouseX;
-	y_target = mouseY;
-	return false;
-}
-*/
 function setCenter() {
 	x_target = mouseX;
 	y_target = mouseY;
-	//return false;
 }
 
 function moveCenter() {
-	x_target = mouseX;
-	y_target = mouseY;
-	//return false;
+	x_target += ceil(mouseX - x_target) / 7.5;
+	y_target += ceil(mouseY - y_target) / 7.5;
 }

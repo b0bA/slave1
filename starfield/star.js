@@ -5,6 +5,7 @@ function Star() {
 	this.y = random(-height, height);
 	this.z = random(width);
 	this.pz = this.z;
+	this.color = color(random(200,255), random(200,255), random(200,255));
 	this.helper = random(0,10);
 	if (this.helper > 8) {
 		this.size = random(0, maxSize);
@@ -25,7 +26,7 @@ function Star() {
 	}
 
 	this.show = function() {
-		fill(255);
+		fill(this.color);
 		noStroke();
 		var sx = map(this.x / this.z, 0, 1, 0, width);
 		var sy = map(this.y / this.z, 0, 1, 0, height);
@@ -37,7 +38,7 @@ function Star() {
 		var py = map(this.y / this.pz, 0, 1, 0, height);
 		this.pz = this.z;
 
-		stroke(255);
+		stroke(this.color);
 		line(px, py, sx, sy);
 	}
 }

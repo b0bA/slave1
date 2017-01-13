@@ -1,6 +1,9 @@
 var stars = [];
 var speed;
-var nrOfStars = 1000;
+var nrOfMinStars = 0;
+var nrOfMaxStars = 2000;
+var nrOfStars = nrOfMaxStars/2;
+var createStarStep = 1;
 var x_target;
 var y_target;
 var starSlider;
@@ -13,7 +16,8 @@ function setup() {
   //canvas.touchMoved(moveCenter);
   x_target = width / 2;
   y_target = width / 2;
-  starSlider = createSlider(0, 5000, nrOfStars, 1);
+  starSlider = createSlider(nrOfMinStars, nrOfMaxStars, nrOfStars, createStarStep);
+  starSlider.position(20, height+50);
   translate(x_target, y_target);
   createStars();
 }
@@ -22,8 +26,14 @@ function setup() {
 function draw() {
   //speed = map(mouseX, 0, width, 0, 50);
   background(0);
+  noStroke();
+  fill(255);
   text("FPS: " + round(frameRate(),2), 20, 20);
   text("Stars: " + stars.length, width - 80, 20);
+  //fill(255,100,0);
+  //text("Stars: " + starSlider.value(), starSlider.position().x, starSlider.position().y-10);
+  //text(nrOfMinStars, starSlider.position().x - 10, starSlider.position().y);
+  //text(nrOfMaxStars, starSlider.position().x + starSlider.width+10, starSlider.position().y);
   translate(x_target, y_target);
   if (stars.length != starSlider.value()) {
 	createStars();
